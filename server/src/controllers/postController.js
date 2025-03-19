@@ -1,5 +1,4 @@
 const { PrismaClient } = require("@prisma/client");
-const { request } = require("express");
 const prisma = new PrismaClient();
 
 //get all posts
@@ -81,5 +80,28 @@ exports.updatePost = async (req, res) => {
     } catch (error) {
       console.error("Error updating post:", error);
       res.status(500).json({ error: "Server error while updating post" });
+    }
+  };
+
+  exports.deletePost = async (req, res) => {
+    try {
+      const { id } = req.params;
+
+      const existingPost = await prisma.post.findUnique({
+        where: { id: parseInt(id) },
+      });
+  
+      if (!existingPost) {
+        return res.status(404).json({ error: "Post not found" });
+      }
+  
+      await prisma.post.delete({
+        where: { id: parseInt(id) },
+      });
+  
+      res.json({message:'Post successfully deleted'})
+    } catch (error) {
+      console.error("Error deleting post:", error);
+      res.status(500).json({ error: "Server error while deleting post" });
     }
   };
