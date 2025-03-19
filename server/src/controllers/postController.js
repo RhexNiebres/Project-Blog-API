@@ -56,3 +56,30 @@ exports.createPost = async (req, res) => {
   }
 };
 
+exports.updatePost = async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { title, content } = req.body;
+
+      const existingPost = await prisma.post.findUnique({
+        where: { id: parseInt(id) },
+      });
+  
+      if (!existingPost) {
+        return res.status(404).json({ error: "Post not found" });
+      }
+  
+      const updatedPost = await prisma.post.update({
+        where: { id: parseInt(id) },
+        data: {
+          title: title || existingPost.title,
+          content: content || existingPost.content,
+        },
+      });
+  
+      res.json(updatedPost);
+    } catch (error) {
+      console.error("Error updating post:", error);
+      res.status(500).json({ error: "Server error while updating post" });
+    }
+  };
