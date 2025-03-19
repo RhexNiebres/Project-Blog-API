@@ -31,4 +31,23 @@ exports.getCommentById = async (req, res) => {
   }
 };
 
+exports.createComment = async(req,res) => {
+    try{
+        const { content, postId, authorId } =req.params;
 
+        if(!content || !postId || !authorId){
+           return res.status(400).json({error:'Error content, postId and authorId are required'})
+        }
+        const newComment = await prisma.newComment.create({
+            data:{
+                content,
+                postId: parseInt(id),
+                authorId: parseInt(id)
+            },
+        });
+        res.status(201).json(newComment)
+    }catch(error){
+        console.error('Error creating comment', error)
+        res.status(500).json({error:'Server error while creating comment'})
+    }
+};
