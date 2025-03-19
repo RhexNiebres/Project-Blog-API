@@ -1,10 +1,10 @@
-const { PrismaClient } = "@prisma/client";
+const { PrismaClient } =require("@prisma/client");
 const prisma = new PrismaClient();
 
 exports.getCommentByPost = async (req, res) => {
   try {
     const { postId } = req.params;
-    const comments = await prisma.comments.findMany({
+    const comments = await prisma.comment.findMany({
       where: { postId: parseInt(postId) },
       orderBy: { createdAt: "desc" },
     });
@@ -19,10 +19,10 @@ exports.getCommentById = async (req, res) => {
   try {
     const { id } = req.params;
     const comment = await prisma.comment.findUnique({
-      where: { postId: parseInt(id) },
+      where: {id: parseInt(id) },
     });
-    if (!comments) {
-      console.error("Error comment does not exist", error);
+    if (!comment) {
+      return res.status(404).json({error:"Error comment does not exist"});
     }
     res.json(comment);
   } catch (error) {
@@ -33,16 +33,16 @@ exports.getCommentById = async (req, res) => {
 
 exports.createComment = async(req,res) => {
     try{
-        const { content, postId, authorId } =req.params;
+        const { content, postId, authorId } =req.body;
 
         if(!content || !postId || !authorId){
            return res.status(400).json({error:'Error content, postId and authorId are required'})
         }
-        const newComment = await prisma.newComment.create({
+        const newComment = await prisma.comment.create({
             data:{
                 content,
-                postId: parseInt(id),
-                authorId: parseInt(id)
+                postId: parseInt(postId),
+                authorId: parseInt(authorId)
             },
         });
         res.status(201).json(newComment)
@@ -55,12 +55,12 @@ exports.createComment = async(req,res) => {
 exports.updateComment = async(req,res) =>{
     try{
         const { id }=req.params;
-        const { content }=req.params;
+        const { content }=req.body;
         const existingComment = await prisma.comment.findUnique({
             where: {id: parseInt(id)}
         });
         if(!existingComment){
-            return res.status(404).json({error:'Error comment does not exist'})
+            return res.status(404).json({error:'Comment does not exist'})
         }
         const updateComment= await prisma.comment.update({
             where:{id: parseInt(id)},
@@ -72,5 +72,24 @@ exports.updateComment = async(req,res) =>{
     }catch (error){
         console.log('Error updating comment', error);
         res.status(500).json({error: 'Server error while updating comment'})
+    }
+};
+
+exports.deleteComment = async(req,res) =>{
+    try{
+        const { id }=req.params;
+        const existingComment = await prisma.comment.findUnique({
+            where: {id: parseInt(id)}
+        });
+        if(!existingComment){
+            return res.status(404).json({error:'Comment does not exist'})
+        }
+         await prisma.comment.delete({
+            where:{id: parseInt(id)},
+        });
+        res.json({message:'comment successfully deleted'});
+    }catch (error){
+        console.log('Error deleting comment', error);
+        res.status(500).json({error: 'Server error while deleting comment'})
     }
 } 
