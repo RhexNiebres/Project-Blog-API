@@ -54,16 +54,16 @@ exports.createComment = async(req,res) => {
 
 exports.updateComment = async(req,res) =>{
     try{
-        const { id }=req.params;
+        const { commentId }=req.params;
         const { content }=req.body;
         const existingComment = await prisma.comment.findUnique({
-            where: {id: parseInt(id)}
+            where: {id: parseInt(commentId)}
         });
         if(!existingComment){
             return res.status(404).json({error:'Comment does not exist'})
         }
         const updateComment= await prisma.comment.update({
-            where:{id: parseInt(id)},
+            where:{id: parseInt(commentId)},
             data:{
                 content:content || existingComment.content,
             },
