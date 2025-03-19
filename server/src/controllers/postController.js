@@ -1,8 +1,8 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
-//get all posts
-exports.getPosts = async (req, res) => {
+
+exports.getAllPosts = async (req, res) => {
   try {
     const posts = await prisma.post.findMany({
       orderBy: { createdAt: "desc" },
@@ -58,7 +58,7 @@ exports.createPost = async (req, res) => {
 exports.updatePost = async (req, res) => {
     try {
       const { id } = req.params;
-      const { title, content } = req.body;
+      const { title, content,  published } = req.body;
 
       const existingPost = await prisma.post.findUnique({
         where: { id: parseInt(id) },
@@ -73,6 +73,7 @@ exports.updatePost = async (req, res) => {
         data: {
           title: title || existingPost.title,
           content: content || existingPost.content,
+          published: typeof published === "boolean" ? published : existingPost.published,
         },
       });
   
