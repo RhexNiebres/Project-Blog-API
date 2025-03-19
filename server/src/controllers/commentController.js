@@ -51,3 +51,26 @@ exports.createComment = async(req,res) => {
         res.status(500).json({error:'Server error while creating comment'})
     }
 };
+
+exports.updateComment = async(req,res) =>{
+    try{
+        const { id }=req.params;
+        const { content }=req.params;
+        const existingComment = await prisma.comment.findUnique({
+            where: {id: parseInt(id)}
+        });
+        if(!existingComment){
+            return res.status(404).json({error:'Error comment does not exist'})
+        }
+        const updateComment= await prisma.comment.update({
+            where:{id: parseInt(id)},
+            data:{
+                content:content || existingComment.content,
+            },
+        });
+        res.json(updateComment);
+    }catch (error){
+        console.log('Error updating comment', error);
+        res.status(500).json({error: 'Server error while updating comment'})
+    }
+} 
