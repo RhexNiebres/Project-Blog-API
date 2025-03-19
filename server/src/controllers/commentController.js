@@ -77,15 +77,15 @@ exports.updateComment = async(req,res) =>{
 
 exports.deleteComment = async(req,res) =>{
     try{
-        const { id }=req.params;
+        const { commentId }=req.params;
         const existingComment = await prisma.comment.findUnique({
-            where: {id: parseInt(id)}
+            where: {id: parseInt(commentId)}
         });
         if(!existingComment){
             return res.status(404).json({error:'Comment does not exist'})
         }
          await prisma.comment.delete({
-            where:{id: parseInt(id)},
+            where:{id: parseInt(commentId)},
         });
         res.json({message:'comment successfully deleted'});
     }catch (error){
