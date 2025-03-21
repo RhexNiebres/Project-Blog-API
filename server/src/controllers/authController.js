@@ -6,16 +6,20 @@ require("dotenv").config({path:"../../.env"});
 
 
 exports.getLogin = (req, res) => {
-  res.render("login");
+  res.json({message: "Login page"});
 };
 
 exports.getSignUp = (req, res) => {
-  res.render("signup");
-};
+  res.json({message: "Signup page"});
+};          
 
 exports.postSignUp = async (req, res, next) => {
   try {
-    const { firstname, lastname, username, password } = req.body;
+    const { username, email, password, } = req.body;
+
+    if (!username || !password || !email) {
+      return res.status(400).json({ message: "All fields are required." });
+    }
 
     const existingUser = await prisma.user.findUnique({
       where: { username },
@@ -29,9 +33,8 @@ exports.postSignUp = async (req, res, next) => {
 
     const newUser = await prisma.user.create({
       data: {
-        firstname,
-        lastname,
         username,
+        email,
         password: hashedPassword,
       },
     });
@@ -62,9 +65,6 @@ exports.postLogin = async(req,res, next) =>{
   }
 };
 
-exports.logout = (req, res, next) => {
-  req.logout((err) => {
-    if (err) return next(err);
-    res.redirect("/login");
-  });
+exports.logout = (req, res) => {
+ res.json({message:"Logout successful"})
 };
