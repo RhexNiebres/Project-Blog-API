@@ -5,8 +5,8 @@ const authController = require("../controllers/authController");
 
 router.get("/sign-up", authController.getSignUp);
 router.post("/sign-up", authController.postSignUp);
-router.get("/login", authController.getLogin);
-router.post("/log-in", passport.authenticate("local", { successRedirect: "/", failureRedirect: "/" }));
+router.post("/log-in", authController.postLogin);
+router.get("/log-in", authController.getLogin);
 router.get("/log-out", authController.logout);
 
 module.exports = router;
