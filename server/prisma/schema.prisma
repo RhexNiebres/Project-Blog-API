@@ -45,8 +45,3 @@ enum Role {
   USER
 }
 
-model TokenBlacklist {
-  id        Int      @id @default(autoincrement())
-  token     String   @unique
-  createdAt DateTime @default(now())
-}
