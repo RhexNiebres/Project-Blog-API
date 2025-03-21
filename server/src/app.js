@@ -5,11 +5,12 @@ const indexRoutes = require("./routes/index")
 const authRoutes = require("./routes/auth")
 const commentRoutes = require('./routes/comment')
 const postRoutes = require('./routes/post')
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use("/", indexRoutes);
-app.use('/',authRoutes)
+app.use("/",authRoutes)
 app.use("/comments", commentRoutes);
 app.use("/posts", postRoutes);
 
