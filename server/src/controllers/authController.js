@@ -44,6 +44,24 @@ exports.postSignUp = async (req, res, next) => {
   }
 };
 
+exports.postLogin = async(req,res, next) =>{
+  try{
+    const {username, password}= req.body;
+
+    const user = await prisma.user.findUnique({where: {username}})
+    if(!user)return res.status(400).json({message:"Invalid username or password."})
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if(!isMatch)return res.status(400).json({message: "Invalid username or password"})
+      
+      const token = generateToken(user);
+
+      res.json({message: "Login successful", token})
+  }catch(err){
+    next(err);
+  }
+};
+
 exports.logout = (req, res, next) => {
   req.logout((err) => {
     if (err) return next(err);
