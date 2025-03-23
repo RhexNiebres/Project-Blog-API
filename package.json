@@ -4,7 +4,7 @@
   "description": "Blog API (WIP)",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon app.js",
+    "dev": "concurrently \"npm run dev --prefix server\" \"npm run dev --prefix apps/users\" \"npm run dev --prefix apps/admin\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,11 +20,14 @@
   },
   "homepage": "https://github.com/RhexNiebres/Project-Blog-API#readme",
   "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
     "nodemon": "^3.1.9",
     "prisma": "^6.5.0"
   },
   "dependencies": {
     "@prisma/client": "^6.5.0",
+    "concurrently": "^9.1.2",
+    "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2"
   }
