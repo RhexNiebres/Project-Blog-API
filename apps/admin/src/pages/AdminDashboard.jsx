@@ -173,6 +173,7 @@ const AdminDashboard = () => {
               <>
                 <h3>{post.title}</h3>
                 <p>{post.content}</p>
+                <p><strong>Posted by: </strong>{post.author.username}</p> {/* Display username here */}
                 <button
                   onClick={() => {
                     setEditingPostId(post.id);
