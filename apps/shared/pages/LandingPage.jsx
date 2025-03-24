@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { isAuthenticated, logout } from "../services/AuthService";
+import { isAuthenticated } from "../services/AuthService";
 
 const LandingPage = () => {
   const navigate = useNavigate();
@@ -25,16 +25,7 @@ const LandingPage = () => {
 
   return (
     <div>
-       <nav style={{ display: "flex", gap: "10px", padding: "10px" }}>
-        {!token ? (
-          <>
-            <button onClick={() => navigate("/signup")}>Sign Up</button>
-            <button onClick={() => navigate("/login")}>Log In</button>
-          </>
-        ) : (
-          <button onClick={logout}>Log Out</button> 
-        )}
-      </nav>
+
 
       {/* Page Content */}
       <div style={{ textAlign: "center", marginTop: "20px" }}>
