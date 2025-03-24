@@ -116,64 +116,72 @@ const AdminDashboard = () => {
   };
 
   return (
-    <div>
-<div>
-  <h2>Add New Post</h2>
-  <input
-    type="text"
-    placeholder="Title"
-    value={newPostTitle}
-    onChange={(e) => setNewPostTitle(e.target.value)}
-  />
-  <textarea
-    placeholder="Content"
-    value={newPostContent}
-    onChange={(e) => setNewPostContent(e.target.value)}
-  ></textarea>
-  <button onClick={handleAddPost}>Add Post</button>
-</div>
+    <div className="p-6 space-y-10 bg-gray-100 min-h-screen">
+    <div className="bg-white p-6 rounded-lg shadow-lg border border-blue-300">
+      <h2 className="text-2xl font-semibold text-blue-700">Add New Post</h2>
+      <input
+        type="text"
+        placeholder="Title"
+        value={newPostTitle}
+        onChange={(e) => setNewPostTitle(e.target.value)}
+        className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 mt-3"
+      />
+      <textarea
+        placeholder="Content"
+        value={newPostContent}
+        onChange={(e) => setNewPostContent(e.target.value)}
+        className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 mt-3 h-28"
+      ></textarea>
+      <button
+        onClick={handleAddPost}
+        className="w-full py-3 mt-4 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      >
+        Add Post
+      </button>
+    </div>
 
-      <div>
-        <h2>Existing Posts</h2>
-        {posts.map((post) => (
-          <div
-            key={post.id}
-            style={{
-              border: "1px solid #ddd",
-              padding: "10px",
-              marginBottom: "20px",
-            }}
-          >
-            {editingPostId === post.id ? (
-              <>
-                <input
-                  type="text"
-                  value={editingPostContent.title}
-                  onChange={(e) =>
-                    setEditingPostContent({
-                      ...editingPostContent,
-                      title: e.target.value,
-                    })
-                  }
-                />
-                <textarea
-                  value={editingPostContent.content}
-                  onChange={(e) =>
-                    setEditingPostContent({
-                      ...editingPostContent,
-                      content: e.target.value,
-                    })
-                  }
-                ></textarea>
-                <button onClick={() => handleEditPost(post.id)}>
-                  Update Post
-                </button>
-              </>
-            ) : (
-              <>
-                <h3>{post.title}</h3>
-                <p>{post.content}</p>
-                <p><strong>Posted by: </strong>{post.author.username}</p> {/* Display username here */}
+    <div className="space-y-6">
+      <h2 className="text-3xl font-semibold text-blue-700">Existing Posts</h2>
+      {posts.map((post) => (
+        <div
+          key={post.id}
+          className="bg-white border border-gray-200 p-6 rounded-lg shadow-md space-y-4"
+        >
+          {editingPostId === post.id ? (
+            <>
+              <input
+                type="text"
+                value={editingPostContent.title}
+                onChange={(e) =>
+                  setEditingPostContent({
+                    ...editingPostContent,
+                    title: e.target.value,
+                  })
+                }
+                className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+              <textarea
+                value={editingPostContent.content}
+                onChange={(e) =>
+                  setEditingPostContent({
+                    ...editingPostContent,
+                    content: e.target.value,
+                  })
+                }
+                className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 h-28"
+              ></textarea>
+              <button
+                onClick={() => handleEditPost(post.id)}
+                className="w-full py-3 mt-4 bg-green-500 text-white font-semibold rounded-md hover:bg-green-600 transition duration-200 focus:outline-none focus:ring-2 focus:ring-green-500"
+              >
+                Update Post
+              </button>
+            </>
+          ) : (
+            <>
+              <h3 className="text-2xl font-semibold text-blue-800">{post.title}</h3>
+              <p className="text-gray-700">{post.content}</p>
+              <div className="flex space-x-3 mt-4">
                 <button
                   onClick={() => {
                     setEditingPostId(post.id);
@@ -182,19 +190,26 @@ const AdminDashboard = () => {
                       content: post.content,
                     });
                   }}
+                  className="py-2 px-4 bg-yellow-500 text-white font-semibold rounded-md hover:bg-yellow-600 transition duration-200 focus:outline-none focus:ring-2 focus:ring-yellow-500"
                 >
                   Edit
                 </button>
-                <button onClick={() => handleDeletePost(post.id)}>
+                <button
+                  onClick={() => handleDeletePost(post.id)}
+                  className="py-2 px-4 bg-red-500 text-white font-semibold rounded-md hover:bg-red-600 transition duration-200 focus:outline-none focus:ring-2 focus:ring-red-500"
+                >
                   Delete
                 </button>
-              </>
-            )}
-          </div>
-        ))}
-      </div>
+              </div>
+            </>
+          )}
+        </div>
+      ))}
     </div>
+  </div>
+  
   );
+  
 };
 
 export default AdminDashboard;
