@@ -24,31 +24,34 @@ const LandingPage = () => {
   }, []);
 
   return (
-    <div>
+    <div className="min-h-screen bg-gray-100 flex flex-col items-center p-6">
+
+  <div className="text-center mt-6">
+    <h1 className="text-4xl font-bold text-blue-600">Welcome to Brain Dump</h1>
+    <p className="text-lg text-gray-700 mt-2">Sign up or log in to continue.</p>
+  </div>
 
 
-      {/* Page Content */}
-      <div style={{ textAlign: "center", marginTop: "20px" }}>
-        <h1>Welcome to Our Platform</h1>
-        <p>Sign up or log in to continue.</p>
-      </div>
+  <div className="mt-10 w-full max-w-2xl">
+    <h2 className="text-2xl font-semibold text-blue-600 mb-4">Recent Posts</h2>
+    
+    {posts.length > 0 ? (
+      posts.map((post) => (
+        <div 
+          key={post.id} 
+          className="border border-blue-300 bg-white p-4 rounded-lg shadow-md mb-4"
+        >
+          <h3 className="text-xl font-semibold text-blue-700">{post.title}</h3>
+          <p className="text-gray-700 mt-2">{post.content}</p>
+          <small className="text-gray-500 block mt-2">By {post.author?.username || "Admin"}</small>
+        </div>
+      ))
+    ) : (
+      <p className="text-gray-600">No posts available.</p>
+    )}
+  </div>
+</div>
 
-      {/* Posts Section */}
-      <div style={{ padding: "20px" }}>
-        <h2>Recent Posts</h2>
-        {posts.length > 0 ? (
-          posts.map((post) => (
-            <div key={post.id} style={{ border: "1px solid #ccc", padding: "10px", marginBottom: "10px" }}>
-              <h3>{post.title}</h3>
-              <p>{post.content}</p>
-              <small>By {post.author?.username || "Admin"}</small>
-            </div>
-          ))
-        ) : (
-          <p>No posts available.</p>
-        )}
-      </div>
-    </div>
   );
 };
 
