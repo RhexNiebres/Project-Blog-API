@@ -3,18 +3,13 @@ const prisma = new PrismaClient();
 
 exports.getAllPosts = async (req, res) => {
   try {
+    const { published } = req.query;
+
     const posts = await prisma.post.findMany({
+      where: published === "true" ? { published: true } : {}, // Show only published 
       include: {
-        author: {
-          select: {
-            username: true,
-          },
-        },
-        comments: {
-          include: {
-            author: true,
-          },
-        },
+        author: { select: { username: true } },
+        comments: { include: { author: true } },
       },
       orderBy: { createdAt: "desc" },
     });
@@ -25,6 +20,7 @@ exports.getAllPosts = async (req, res) => {
     res.status(500).json({ error: "Server error while fetching posts" });
   }
 };
+
 
 exports.getPostById = async (req, res) => {
   try {
@@ -75,21 +71,12 @@ exports.updatePost = async (req, res) => {
     const { id } = req.params;
     const { title, content, published } = req.body;
 
-    const existingPost = await prisma.post.findUnique({
-      where: { id: parseInt(id) },
-    });
-
-    if (!existingPost) {
-      return res.status(404).json({ error: "Post not found" });
-    }
-
     const updatedPost = await prisma.post.update({
       where: { id: parseInt(id) },
       data: {
-        title: title || existingPost.title,
-        content: content || existingPost.content,
-        published:
-          typeof published === "boolean" ? published : existingPost.published,
+        title,
+        content,
+        published,
       },
     });
 
@@ -99,6 +86,7 @@ exports.updatePost = async (req, res) => {
     res.status(500).json({ error: "Server error while updating post" });
   }
 };
+
 
 exports.deletePost = async (req, res) => {
   try {
