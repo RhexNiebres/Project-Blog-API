@@ -1,20 +1,42 @@
 import { getToken, logout } from "../services/AuthService"; 
 import { useNavigate } from "react-router-dom";
+import logo from "../assets/logo.svg";
 
 const NavBar = () => {
   const navigate = useNavigate();
-  const token = getToken(); // Get token safely
+  const token = getToken(); 
 
   return (
-    <nav>
-      {!token ? (
-        <>
-          <button onClick={() => navigate("/signup")}>Sign Up</button>
-          <button onClick={() => navigate("/login")}>Log In</button>
-        </>
-      ) : (
-        <button onClick={() => logout(navigate)}>Log Out</button> 
-      )}
+    <nav className="bg-blue-600 p-4 flex justify-between items-center text-white">
+         <div className="flex items-center cursor-pointer" onClick={() => navigate("/")}>
+        <h1 className="text-2xl font-bold">Brain Dump</h1>
+      </div>
+
+      <div className="space-x-4">
+        {!token ? (
+          <>
+            <button
+              onClick={() => navigate("/signup")}
+              className="bg-white text-blue-600 px-4 py-2 rounded-md hover:bg-gray-200"
+            >
+              Sign Up
+            </button>
+            <button
+              onClick={() => navigate("/login")}
+              className="bg-white text-blue-600 px-4 py-2 rounded-md hover:bg-gray-200"
+            >
+              Log In
+            </button>
+          </>
+        ) : (
+          <button
+            onClick={() => logout(navigate)}
+            className="bg-red-500 px-4 py-2 rounded-md hover:bg-red-600"
+          >
+            Log Out
+          </button>
+        )}
+      </div>
     </nav>
   );
 };
