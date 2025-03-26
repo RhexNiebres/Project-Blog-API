@@ -1,19 +1,18 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
-
 exports.getAllPosts = async (req, res) => {
   try {
     const posts = await prisma.post.findMany({
       include: {
-        author: {  
+        author: {
           select: {
-            username: true,  
+            username: true,
           },
         },
         comments: {
           include: {
-            author: true, 
+            author: true,
           },
         },
       },
@@ -26,7 +25,6 @@ exports.getAllPosts = async (req, res) => {
     res.status(500).json({ error: "Server error while fetching posts" });
   }
 };
-
 
 exports.getPostById = async (req, res) => {
   try {
@@ -49,17 +47,19 @@ exports.getPostById = async (req, res) => {
 exports.createPost = async (req, res) => {
   try {
     const { title, content } = req.body;
-    const authorId = req.user.id; 
+    const authorId = req.user.id;
 
     if (!title || !content || !authorId) {
-      return res.status(400).json({ error: "Title, content and user are required" });
+      return res
+        .status(400)
+        .json({ error: "Title, content and user are required" });
     }
 
     const newPost = await prisma.post.create({
       data: {
         title,
         content,
-        authorId,   
+        authorId,
       },
     });
 
@@ -70,60 +70,60 @@ exports.createPost = async (req, res) => {
   }
 };
 
-
 exports.updatePost = async (req, res) => {
-    try {
-      const { id } = req.params;
-      const { title, content,  published } = req.body;
+  try {
+    const { id } = req.params;
+    const { title, content, published } = req.body;
 
-      const existingPost = await prisma.post.findUnique({
-        where: { id: parseInt(id) },
-      });
-  
-      if (!existingPost) {
-        return res.status(404).json({ error: "Post not found" });
-      }
-  
-      const updatedPost = await prisma.post.update({
-        where: { id: parseInt(id) },
-        data: {
-          title: title || existingPost.title,
-          content: content || existingPost.content,
-          published: typeof published === "boolean" ? published : existingPost.published,
-        },
-      });
-  
-      res.json(updatedPost);
-    } catch (error) {
-      console.error("Error updating post:", error);
-      res.status(500).json({ error: "Server error while updating post" });
+    const existingPost = await prisma.post.findUnique({
+      where: { id: parseInt(id) },
+    });
+
+    if (!existingPost) {
+      return res.status(404).json({ error: "Post not found" });
     }
-  };
 
-  exports.deletePost = async (req, res) => {
-    try {
-      const { id } = req.params;
+    const updatedPost = await prisma.post.update({
+      where: { id: parseInt(id) },
+      data: {
+        title: title || existingPost.title,
+        content: content || existingPost.content,
+        published:
+          typeof published === "boolean" ? published : existingPost.published,
+      },
+    });
 
-      const existingPost = await prisma.post.findUnique({
-        where: { id: parseInt(id) },
-        include: { comments: true }, 
-      });
-  
-      if (!existingPost) {
-        return res.status(404).json({ error: "Post not found" });
-      }
+    res.json(updatedPost);
+  } catch (error) {
+    console.error("Error updating post:", error);
+    res.status(500).json({ error: "Server error while updating post" });
+  }
+};
 
-      await prisma.comment.deleteMany({
-        where: { postId: parseInt(id) },
-      });
-  
-      await prisma.post.delete({
-        where: { id: parseInt(id) },
-      });
-  
-      res.json({message:'Post successfully deleted'})
-    } catch (error) {
-      console.error("Error deleting post:", error);
-      res.status(500).json({ error: "Server error while deleting post" });
+exports.deletePost = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const existingPost = await prisma.post.findUnique({
+      where: { id: parseInt(id) },
+      include: { comments: true },
+    });
+
+    if (!existingPost) {
+      return res.status(404).json({ error: "Post not found" });
     }
-  };
+
+    await prisma.comment.deleteMany({
+      where: { postId: parseInt(id) },
+    });
+
+    await prisma.post.delete({
+      where: { id: parseInt(id) },
+    });
+
+    res.json({ message: "Post successfully deleted" });
+  } catch (error) {
+    console.error("Error deleting post:", error);
+    res.status(500).json({ error: "Server error while deleting post" });
+  }
+};
