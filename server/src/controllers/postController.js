@@ -5,14 +5,28 @@ const prisma = new PrismaClient();
 exports.getAllPosts = async (req, res) => {
   try {
     const posts = await prisma.post.findMany({
+      include: {
+        author: {  
+          select: {
+            username: true,  
+          },
+        },
+        comments: {
+          include: {
+            author: true, 
+          },
+        },
+      },
       orderBy: { createdAt: "desc" },
     });
+
     res.json(posts);
   } catch (error) {
     console.error("Error fetching posts:", error);
     res.status(500).json({ error: "Server error while fetching posts" });
   }
 };
+
 
 exports.getPostById = async (req, res) => {
   try {
@@ -34,26 +48,28 @@ exports.getPostById = async (req, res) => {
 
 exports.createPost = async (req, res) => {
   try {
-    const { title, content, authorId } = req.body;
+    const { title, content } = req.body;
+    const authorId = req.user.id; 
 
     if (!title || !content || !authorId) {
-      return res
-        .status(400)
-        .json({ error: "Title,content and author are required" });
+      return res.status(400).json({ error: "Title, content and user are required" });
     }
+
     const newPost = await prisma.post.create({
       data: {
         title,
         content,
-        authorId: parseInt(authorId),
+        authorId,   
       },
     });
+
     res.status(201).json(newPost);
   } catch (error) {
     console.error("Error creating post:", error);
-    res.status(500).json({ error: "server error while creating post" });
+    res.status(500).json({ error: "Server error while creating post" });
   }
 };
+
 
 exports.updatePost = async (req, res) => {
     try {
