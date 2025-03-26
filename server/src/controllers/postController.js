@@ -106,11 +106,16 @@ exports.updatePost = async (req, res) => {
 
       const existingPost = await prisma.post.findUnique({
         where: { id: parseInt(id) },
+        include: { comments: true }, 
       });
   
       if (!existingPost) {
         return res.status(404).json({ error: "Post not found" });
       }
+
+      await prisma.comment.deleteMany({
+        where: { postId: parseInt(id) },
+      });
   
       await prisma.post.delete({
         where: { id: parseInt(id) },
