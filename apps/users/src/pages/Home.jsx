@@ -8,7 +8,7 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:8080/posts")
+    fetch("http://localhost:8080/posts?published=true")
       .then((res) => res.json())
       .then((data) => {
         setPosts(data);
