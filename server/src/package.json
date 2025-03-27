@@ -6,5 +6,12 @@
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
     "passport": "^0.7.0"
-  }
+  },
+
+"scripts": {
+  "dev": "concurrently \"npm run dev --prefix server\" \"npm run dev --prefix apps/users\" \"npm run dev --prefix apps/admin\"",
+  "start": "node server/app.js",  
+  "test": "echo \"Error: no test specified\" && exit 1"
+}
+
 }
