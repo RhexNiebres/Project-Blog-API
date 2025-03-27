@@ -31,25 +31,42 @@ exports.getCommentById = async (req, res) => {
   }
 };
 
-exports.createComment = async(req,res) => {
-    try{
-        const { content, postId, authorId } =req.body;
+exports.createComment = async (req, res) => {
+  const { postId } = req.params;
+  const { content } = req.body;
+  const userId = parseInt(req.user.id, 10); 
 
-        if(!content || !postId || !authorId){
-           return res.status(400).json({error:'Error content, postId and authorId are required'})
-        }
-        const newComment = await prisma.comment.create({
-            data:{
-                content,
-                postId: parseInt(postId),
-                authorId: parseInt(authorId)
-            },
-        });
-        res.status(201).json(newComment)
-    }catch(error){
-        console.error('Error creating comment', error)
-        res.status(500).json({error:'Server error while creating comment'})
-    }
+  if (!content) {
+    return res.status(400).json({ error: 'Content is required' });
+  }
+
+  const userExists = await prisma.user.findUnique({
+    where: {
+      id: userId, 
+    },
+  });
+
+  if (!userExists) {
+    return res.status(404).json({ error: 'User not found' });
+  }
+
+  try {
+    const newComment = await prisma.comment.create({
+      data: {
+        content,
+        postId: parseInt(postId, 10), 
+        authorId: userId,
+      },
+      include: {
+        author: true, 
+      },
+    });
+
+    res.status(201).json(newComment);
+  } catch (error) {
+    console.error("Error creating comment:", error);
+    res.status(500).json({ error: 'Failed to create comment' });
+  }
 };
 
 exports.updateComment = async(req,res) =>{
