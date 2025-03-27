@@ -27,7 +27,7 @@ const PostForm = ({ onPostAdded }) => {
     }
   };
   return (
-    <div className="bg-white p-6 rounded-lg shadow-lg border border-blue-300">
+    <div className="bg-white p-6 rounded-lg shadow-lg border border-gray-300">
       <h2 className="text-2xl font-semibold text-blue-700">Add New Post</h2>
       
       <input
