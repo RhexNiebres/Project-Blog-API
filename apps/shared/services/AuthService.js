@@ -1,3 +1,4 @@
+
 export const signup = async (credentials) => {
   const response = await fetch("http://localhost:8080/sign-up", {
     method: "POST",
