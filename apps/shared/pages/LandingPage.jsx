@@ -41,7 +41,11 @@ const LandingPage = () => {
             Recent Posts
           </h2>
 
-          {posts.length > 0 ? (
+          {
+          loading?(
+            <div className="text-center text-2xl font-semibold text-blue-600 ">Loading...</div> // Display loading message
+          ):
+          posts.length > 0 ? (
             posts.map((post) => (
               <div
                 key={post.id}
