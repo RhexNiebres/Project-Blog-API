@@ -88,7 +88,7 @@ const CommentItem = ({ comment, postId, setPosts }) => {
         <p className="text-gray-700 mt-2">{comment.content}</p>
       )}
 
-      <div className="flex space-x-2 mt-3">
+      <div className="flex space-x-2 mt-4">
         {isEditing ? (
           <button
             onClick={handleEditComment}
@@ -99,7 +99,7 @@ const CommentItem = ({ comment, postId, setPosts }) => {
         ) : (
           <button
             onClick={() => setIsEditing(true)}
-            className="py-1 px-3 bg-yellow-500 text-white font-semibold rounded-md hover:bg-yellow-600"
+            className="py-1 px-3 bg-green-500 text-white font-semibold rounded-md hover:bg-green-600"
           >
             Edit
           </button>
