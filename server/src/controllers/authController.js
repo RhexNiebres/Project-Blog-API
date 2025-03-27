@@ -5,14 +5,6 @@ const { generateToken } = require("../middlewares/auth");
 require("dotenv").config({path:"../../.env"});
 
 
-exports.getLogin = (req, res) => {
-  res.json({message: "Login page"});
-};
-
-exports.getSignUp = (req, res) => {
-  res.json({message: "Signup page"});
-};          
-
 exports.postSignUp = async (req, res, next) => {
   try {
     const { username, email, password, } = req.body;
@@ -26,8 +18,7 @@ exports.postSignUp = async (req, res, next) => {
     });
 
     if (existingUser) {
-      return res.status(400).send("Username already exists.");
-    }
+      return res.status(400).json({ message: "Username already exists." });    }
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -36,6 +27,7 @@ exports.postSignUp = async (req, res, next) => {
         username,
         email,
         password: hashedPassword,
+        role: "USER",
       },
     });
 
@@ -51,15 +43,26 @@ exports.postLogin = async(req,res, next) =>{
   try{
     const {username, password}= req.body;
 
-    const user = await prisma.user.findUnique({where: {username}})
-    if(!user)return res.status(400).json({message:"Invalid username or password."})
+    const user = await prisma.user.findUnique({
+      where: { username },
+      select: {
+        id: true,
+        username: true,
+        email: true,
+        password: true,
+        role: true,  
+      },
+    });
+
+
+    if(!user) return res.status(400).json({ message: "Invalid username or password." });
 
     const isMatch = await bcrypt.compare(password, user.password);
-    if(!isMatch)return res.status(400).json({message: "Invalid username or password"})
+    if(!isMatch) return res.status(400).json({ message: "Invalid username or password." });
       
       const token = generateToken(user);
 
-      res.json({message: "Login successful", token})
+      res.json({message: "Login successful", token, role: user.role, })
   }catch(err){
     next(err);
   }
