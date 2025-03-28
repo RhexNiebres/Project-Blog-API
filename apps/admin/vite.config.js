@@ -12,7 +12,12 @@ export default defineConfig({
   },
   build: {
     rollupOptions: {
-      external: ["react-router-dom"], // ✅ Ensure nothing critical is excluded
+      external: ["react", "react-dom", "react-router-dom"], // Externalize all shared dependencies
+    },
+  },
+  resolve: {
+    alias: {
+      "@shared": "/apps/shared", // Adjust if needed
     },
   },
 });
