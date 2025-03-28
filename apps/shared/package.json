@@ -5,7 +5,12 @@
   "description": "Shared components and utilities for the monorepo",
   "type": "module",
   "main": "index.js",
-  "dependencies": {
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-router-dom": "^7.4.0"
+  },
+  "devDependencies": {
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.4.0"
