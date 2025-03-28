@@ -1,13 +1,15 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import path from "path";
 
 export default defineConfig({
   plugins: [react()],
-  server: {
-    proxy: {
-      "/auth": "http://localhost:8080",
-      "/comments": "http://localhost:8080",
-      "/posts": "http://localhost:8080",
+  resolve: {
+    alias: {
+      "@shared": path.resolve(__dirname, "../shared"), // ✅ Alias for shared folder
     },
-  },  
+  },
+  optimizeDeps: {
+    include: ["react-router-dom"], // ✅ Ensure it's bundled properly
+  },
 });
