@@ -9,10 +9,5 @@ export default defineConfig({
       "/comments": "http://localhost:8080",
       "/posts": "http://localhost:8080",
     },
-  },
-  build: {
-    rollupOptions: {
-      external: ["react-router-dom"], // ✅ Exclude react-router-dom from bundling
-    },
-  },
+  },  
 });
