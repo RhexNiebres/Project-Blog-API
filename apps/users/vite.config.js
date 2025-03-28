@@ -3,14 +3,16 @@ import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [react()],
-  resolve: {
-    alias: {
-      "react-router-dom": require.resolve("react-router-dom"),
+  server: {
+    proxy: {
+      "/auth": "http://localhost:8080",
+      "/comments": "http://localhost:8080",
+      "/posts": "http://localhost:8080",
     },
   },
   build: {
     rollupOptions: {
-      external: ["react-router-dom"], // Exclude from bundling
+      external: ["react-router-dom"], 
     },
   },
 });
