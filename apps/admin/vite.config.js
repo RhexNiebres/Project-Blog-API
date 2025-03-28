@@ -12,7 +12,7 @@ export default defineConfig({
   },
   build: {
     rollupOptions: {
-      external: [], // ✅ Ensure nothing critical is excluded
+      external: ["react-router-dom"], // ✅ Ensure nothing critical is excluded
     },
   },
 });
