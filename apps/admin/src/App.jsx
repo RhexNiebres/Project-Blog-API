@@ -5,7 +5,7 @@ import Login from "../../shared/pages/Login";
 import Signup from "../../shared/pages/Signup";
 import LandingPage from "../../shared/pages/LandingPage";
 import ProtectedRoute from "./services/ProtectedRoute";
-import 'App.css'; 
+import './App.css'; 
 
 const App = () => {
   return (
