@@ -11,6 +11,11 @@ export default defineConfig({
       "/posts": "http://localhost:8080",
     },
   },
+  build: {
+    rollupOptions: {
+      external: ["react", "react-dom", "react-router-dom"], 
+    },
+  },
   resolve: {
     alias: {
       "@shared": "/apps/shared", 
