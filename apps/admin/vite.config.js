@@ -3,6 +3,7 @@ import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [react()],
+  base:"./",
   server: {
     proxy: {
       "/auth": "http://localhost:8080",
@@ -12,12 +13,12 @@ export default defineConfig({
   },
   build: {
     rollupOptions: {
-      external: ["react", "react-dom", "react-router-dom"], // Externalize all shared dependencies
+      external: ["react", "react-dom", "react-router-dom"], 
     },
   },
   resolve: {
     alias: {
-      "@shared": "/apps/shared", // Adjust if needed
+      "@shared": "/apps/shared", 
     },
   },
 });
