@@ -4,7 +4,7 @@ import Login from "../../shared/pages/Login";
 import Signup from "../../shared/pages/Signup";
 import LandingPage from "../../shared/pages/LandingPage";
 import Home from "./pages/Home";
-import ProtectedRoute from "../../shared/services/ProtectedRoute";
+import ProtectedRoute from "./services/ProtectedRoute";
 import './app.css';  
 
 const App = () => {
