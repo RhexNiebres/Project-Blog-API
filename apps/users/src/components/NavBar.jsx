@@ -1,4 +1,4 @@
-import { getToken, logout } from "../../../shared/services/AuthService"; 
+import { getToken, logout } from "../services/Auth"; 
 import { useNavigate } from "react-router-dom";
 
 const NavBar = () => {
