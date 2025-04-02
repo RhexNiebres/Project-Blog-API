@@ -1,8 +1,8 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Login from "../../shared/pages/Login";
-import Signup from "../../shared/pages/Signup";
-import LandingPage from "../../shared/pages/LandingPage";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import LandingPage from "./pages/LandingPage";
 import Home from "./pages/Home";
 import ProtectedRoute from "./services/ProtectedRoute";
 import './App.css';  
