@@ -1,6 +1,5 @@
 import { getToken, logout } from "../services/AuthService"; 
 import { useNavigate } from "react-router-dom";
-import logo from "../assets/logo.svg";
 
 const NavBar = () => {
   const navigate = useNavigate();
