@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import NavBar from "../../../shared/components/NavBar";
+import NavBar from "../components/NavBar";
 import PostForm from "../components/PostForm";
 import PostList from "../components/PostList";
 
