@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import NavBar from "../../../shared/components/NavBar";
+import NavBar from "../components/NavBar";
 import CommentItem from "../components/CommentItem"; 
 
 const Home = () => {
