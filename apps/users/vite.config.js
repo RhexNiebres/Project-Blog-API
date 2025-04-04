@@ -3,18 +3,18 @@ import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [react()],
-  base:"./",
+  base: "./",
   server: {
     proxy: {
-      "/auth": "http://localhost:8080",
-      "/comments": "http://localhost:8080",
-      "/posts": "http://localhost:8080",
+      "/auth": process.env.HOST,
+      "/comments": process.env.HOST,
+      "/posts": process.env.HOST,
     },
   },
 
-    resolve: {
+  resolve: {
     alias: {
-      "@shared": "/apps/shared", 
+      "@shared": "/apps/shared",
     },
   },
 });

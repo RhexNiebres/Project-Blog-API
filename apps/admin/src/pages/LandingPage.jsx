@@ -1,22 +1,23 @@
 import { useEffect, useState } from "react";
-import NavBar from"../components/NavBar";
+import NavBar from "../components/NavBar";
 const LandingPage = () => {
-
   const [posts, setPosts] = useState([]);
-  const [loading,setLoading]= useState(true);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await fetch("http://localhost:8080/posts?published=true");
+        const response = await fetch(
+          import.meta.env.HOST + "/posts?published=true"
+        );
         if (!response.ok) throw new Error("Failed to fetch posts");
 
         const data = await response.json();
         setPosts(data);
       } catch (error) {
         console.error(error.message);
-      }finally{
-        setLoading(false);//stop loading 
+      } finally {
+        setLoading(false); //stop loading
       }
     };
 
@@ -25,7 +26,7 @@ const LandingPage = () => {
 
   return (
     <div className="bg-gray-100 min-screen">
-      <NavBar/>
+      <NavBar />
       <div className="min-h-screen bg-gray-100 flex flex-col items-center p-6">
         <div className="text-center mt-6">
           <h1 className="text-6xl font-bold text-blue-600">
@@ -41,11 +42,11 @@ const LandingPage = () => {
             Recent Posts
           </h2>
 
-          {
-          loading?(
-            <div className="text-center text-2xl font-semibold text-blue-600 ">Loading...</div> // Display loading message
-          ):
-          posts.length > 0 ? (
+          {loading ? (
+            <div className="text-center text-2xl font-semibold text-blue-600 ">
+              Loading...
+            </div> // Display loading message
+          ) : posts.length > 0 ? (
             posts.map((post) => (
               <div
                 key={post.id}

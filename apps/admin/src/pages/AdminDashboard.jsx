@@ -6,18 +6,20 @@ import PostList from "../components/PostList";
 const AdminDashboard = () => {
   const [posts, setPosts] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:8080/posts", {
+    fetch(import.meta.env.HOST + "/posts", {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     })
       .then((res) => res.json())
-      .then((data) => setPosts(data)) 
+      .then((data) => setPosts(data))
       .catch((error) => console.error("Error fetching posts:", error));
   }, []);
 
   const handlePostUpdated = (updatedPost) => {
-    setPosts(posts.map((post) => (post.id === updatedPost.id ? updatedPost : post)));
+    setPosts(
+      posts.map((post) => (post.id === updatedPost.id ? updatedPost : post))
+    );
   };
   const handlePostDeleted = (id) => {
     setPosts(posts.filter((post) => post.id !== id));
@@ -28,8 +30,8 @@ const AdminDashboard = () => {
       <NavBar />
       <div className="p-6 space-y-10 bg-gray-100 min-h-screen">
         <PostForm onPostAdded={(newPost) => setPosts([newPost, ...posts])} />
-        <PostList 
-          posts={posts} 
+        <PostList
+          posts={posts}
           onPostUpdated={handlePostUpdated}
           onPostDeleted={handlePostDeleted}
         />

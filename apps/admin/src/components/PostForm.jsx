@@ -6,7 +6,7 @@ const PostForm = ({ onPostAdded }) => {
 
   const handleAddPost = async () => {
     try {
-      const response = await fetch("http://localhost:8080/posts", {
+      const response = await fetch(import.meta.env.HOST + "/posts", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -29,7 +29,7 @@ const PostForm = ({ onPostAdded }) => {
   return (
     <div className="bg-white p-6 rounded-lg shadow-lg border border-gray-300">
       <h2 className="text-2xl font-semibold text-blue-700">Add New Post</h2>
-      
+
       <input
         type="text"
         placeholder="Title"
@@ -44,7 +44,7 @@ const PostForm = ({ onPostAdded }) => {
         className="w-full p-3 border border-gray-300 rounded-md mt-3 h-28"
       />
       <button
-        onClick={handleAddPost} 
+        onClick={handleAddPost}
         className="w-full py-3 mt-4 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700"
       >
         Add Post
