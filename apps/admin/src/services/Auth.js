@@ -1,5 +1,5 @@
 export const signup = async (credentials) => {
-  const response = await fetch(import.meta.env.HOST + "/sign-up", {
+  const response = await fetch(import.meta.env.VITE_HOST + "/sign-up", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(credentials),
