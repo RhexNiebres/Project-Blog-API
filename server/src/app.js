@@ -13,6 +13,8 @@ app.use(cors({
   credentials: true, // Allow cookies if needed
 }));
 
+app.options("*", cors());
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
