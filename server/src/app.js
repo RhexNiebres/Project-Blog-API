@@ -8,7 +8,7 @@ const postRoutes = require("./routes/post");
 const cors = require("cors");// Allows the frontend (on a different domain) to communicate with the backend
 
 app.use(cors({
-  origin: [`http://localhost:${process.env.APP_PORT}/`, process.env.CLIENT_HOST], // Allow both local and deployed frontend
+  origin: [`http://localhost:${process.env.APP_PORT}`, process.env.CLIENT_HOST], // Allow both local and deployed frontend
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true, // Allow cookies if needed
 }));
