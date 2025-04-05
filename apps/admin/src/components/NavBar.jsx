@@ -31,7 +31,7 @@ const NavBar = () => {
             <div className="space-x-4">
               <button
             onClick={() => navigate("/admin-dashboard")}
-            className="bg-white text-blue-500 px-4 py-2 rounded-md hover:bg-blue-500 hover:text-white"
+            className="bg-white text-blue-600 px-4 py-2 rounded-md hover:bg-blue-500 hover:text-white"
           >
             Admin Dashboard
           </button>
