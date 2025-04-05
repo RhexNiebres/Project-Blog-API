@@ -8,7 +8,7 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(import.meta.env.HOST + "/posts?published=true")
+    fetch(import.meta.env.VITE_HOST + "/posts?published=true")
       .then((res) => res.json())
       .then((data) => {
         setPosts(data);
@@ -29,7 +29,7 @@ const Home = () => {
       return;
     }
 
-    const response = await fetch(`http://localhost:8080/comments/${postId}`, {
+    const response = await fetch(import.meta.env.VITE_HOST + `/comments/${postId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

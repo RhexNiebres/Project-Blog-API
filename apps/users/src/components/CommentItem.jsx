@@ -13,7 +13,7 @@ const CommentItem = ({ comment, postId, setPosts }) => {
       return;
     }
 
-    const response = await fetch(`http://localhost:8080/comments/${comment.id}`, {
+    const response = await fetch(import.meta.env.VITE_HOST + `/comments/${comment.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -50,7 +50,7 @@ const CommentItem = ({ comment, postId, setPosts }) => {
       return;
     }
 
-    const response = await fetch(`http://localhost:8080/comments/${comment.id}`, {
+    const response = await fetch(import.meta.env.VITE_HOST + `/comments/${comment.id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,

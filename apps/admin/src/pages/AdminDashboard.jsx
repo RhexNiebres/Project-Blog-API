@@ -6,7 +6,7 @@ import PostList from "../components/PostList";
 const AdminDashboard = () => {
   const [posts, setPosts] = useState([]);
   useEffect(() => {
-    fetch(import.meta.env.HOST + "/posts", {
+    fetch(import.meta.env.VITE_HOST + "/posts", {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },

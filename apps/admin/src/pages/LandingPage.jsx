@@ -8,7 +8,7 @@ const LandingPage = () => {
     const fetchPosts = async () => {
       try {
         const response = await fetch(
-          import.meta.env.HOST + "/posts?published=true"
+          import.meta.env.VITE_HOST + "/posts?published=true"
         );
         if (!response.ok) throw new Error("Failed to fetch posts");
 

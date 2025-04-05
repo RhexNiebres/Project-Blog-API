@@ -6,7 +6,7 @@ const PostForm = ({ onPostAdded }) => {
 
   const handleAddPost = async () => {
     try {
-      const response = await fetch(import.meta.env.HOST + "/posts", {
+      const response = await fetch(import.meta.env.VITE_HOST + "/posts", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

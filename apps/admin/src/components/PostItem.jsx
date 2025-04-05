@@ -8,7 +8,7 @@ const PostItem = ({ post, onPostUpdated, onPostDeleted }) => {
 
   const togglePublish = async () => {
     try {
-      const response = await fetch(`http://localhost:8080/posts/${post.id}`, {
+      const response = await fetch(import.meta.env.VITE_HOST +`/posts/${post.id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -31,7 +31,7 @@ const PostItem = ({ post, onPostUpdated, onPostDeleted }) => {
 
   const handleUpdate = async () => {
     try {
-      const response = await fetch(`http://localhost:8080/posts/${post.id}`, {
+      const response = await fetch(import.meta.env.VITE_HOST + `/posts/${post.id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -55,7 +55,7 @@ const PostItem = ({ post, onPostUpdated, onPostDeleted }) => {
   
   const handleDelete = async () => {
     try {
-      const response = await fetch(`http://localhost:8080/posts/${post.id}`, {
+      const response = await fetch(import.meta.env.VITE_HOST + `/posts/${post.id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,

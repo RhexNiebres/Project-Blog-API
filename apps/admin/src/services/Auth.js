@@ -62,7 +62,7 @@ export const getUser = async () => {
   const token = getToken();
   if (!token) return null;
 
-  const response = await fetch(import.meta.env.HOST + "/user", {
+  const response = await fetch(import.meta.env.VITE_HOST + "/user", {
     method: "GET",
     headers: { Authorization: `Bearer ${token}` },
   });
