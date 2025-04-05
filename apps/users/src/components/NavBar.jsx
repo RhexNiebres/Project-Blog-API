@@ -28,7 +28,7 @@ const NavBar = () => {
             </button>
           </>
         ) : (
-          <div>
+          <div className="space-x-4">
             <button
             onClick={() => navigate("/home")}
             className="bg-white text-blue-600 px-4 py-2 rounded-md hover:bg-slate-100 hover:text-blue-600"
