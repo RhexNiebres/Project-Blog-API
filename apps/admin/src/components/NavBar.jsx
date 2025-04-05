@@ -31,9 +31,9 @@ const NavBar = () => {
             <div className="space-x-4">
               <button
             onClick={() => navigate("/admin-dashboard")}
-            className="bg-red-500 px-4 py-2 rounded-md hover:bg-red-600"
+            className="bg-white text-blue-500 px-4 py-2 rounded-md hover:bg-blue-500 hover:text-white"
           >
-            Log Out
+            Admin Dashboard
           </button>
           <button
             onClick={() => logout(navigate)}
