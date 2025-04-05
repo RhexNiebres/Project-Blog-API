@@ -28,12 +28,21 @@ const NavBar = () => {
             </button>
           </>
         ) : (
+          <div>
+            <button
+            onClick={() => navigate("/home")}
+            className="bg-white text-blue-600 px-4 py-2 rounded-md hover:bg-slate-100 hover:text-blue-600"
+          >
+            Add Comments
+          </button>
+          
           <button
             onClick={() => logout(navigate)}
             className="bg-red-500 px-4 py-2 rounded-md hover:bg-red-600"
           >
             Log Out
           </button>
+          </div>
         )}
       </div>
     </nav>
