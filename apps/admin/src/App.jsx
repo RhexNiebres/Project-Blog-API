@@ -16,7 +16,7 @@ const App = () => {
         <Route path="/signup" element={<Signup role="admin" />} />
 
         <Route element={<ProtectedRoute />}>
-          <Route path="/AdminDashboard" element={<Dashboard />} />
+          <Route path="/admin-dashboard" element={<Dashboard />} />
         </Route>
       </Routes>
     </BrowserRouter>

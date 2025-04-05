@@ -28,12 +28,20 @@ const NavBar = () => {
             </button>
           </>
         ) : (
+            <div className="space-x-4">
+              <button
+            onClick={() => navigate("/admin-dashboard")}
+            className="bg-red-500 px-4 py-2 rounded-md hover:bg-red-600"
+          >
+            Log Out
+          </button>
           <button
             onClick={() => logout(navigate)}
             className="bg-red-500 px-4 py-2 rounded-md hover:bg-red-600"
           >
             Log Out
           </button>
+            </div>
         )}
       </div>
     </nav>
