@@ -7,25 +7,6 @@ const commentRoutes = require("./routes/comment");
 const postRoutes = require("./routes/post");
 const cors = require("cors"); // Allows the frontend (on a different domain) to communicate with the backend
 
-// const allowedOrigins = [
-//   `http://localhost:${process.env.APP_PORT}`,
-//   process.env.ADMIN_CLIENT_HOST,
-//   process.env.USERS_CLIENT_HOST, 
-// ];
-
-// const corsOptions = {
-//   origin: (origin, callback) => {
-//     if (!origin || allowedOrigins.includes(origin)) {
-//       callback(null, true);
-//     } else {
-//       callback(new Error("Not allowed by CORS"));
-//     }
-//   },
-//   credentials: true,
-// };
-
-// app.use(cors(corsOptions));
-
 app.use(cors({ origin: "*", credentials: true }));
 app.options("*", cors());
 
