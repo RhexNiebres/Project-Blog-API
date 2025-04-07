@@ -35,12 +35,8 @@ export const login = async (credentials) => {
   localStorage.setItem("token", data.token);
   localStorage.setItem("userId", data.userId);
   localStorage.setItem("role", data.role);
-  if (data.role === "ADMIN") {
-    window.location.href = "/AdminDashboard";
-  } else {
-    window.location.href = "/home";
-  }
 
+  window.location.href = "/home";
   return data;
 };
 
